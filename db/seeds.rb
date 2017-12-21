@@ -18,8 +18,8 @@ puts "Be sure to note down these credentials now!"
 user = User.find_or_initialize_by(email: admin_email)
 
 user.name = 'Errbit Admin'
-user.password = admin_pass
-user.password_confirmation = admin_pass
+user.password = admin_pass if user.respond_to?(:'password=')
+user.password_confirmation = admin_pass if user.respond_to?(:'password_confirmation=')
 user.username = admin_username if Errbit::Config.user_has_username
 user.admin = true
 user.save!
