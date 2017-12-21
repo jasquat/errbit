@@ -6,7 +6,7 @@ describe "Health", type: 'request' do
     end
 
     it 'can indicate if a check fails' do
-      expect(Mongoid.default_client).to receive(:database_names).and_raise(Mongo::Error::NoServerAvailable)
+      expect(Mongoid.default_client).to receive(:collections).and_raise(Mongo::Error::NoServerAvailable)
       get '/health/readiness'
       expect(response).to be_error
       parsed_response = JSON.parse(response.body)

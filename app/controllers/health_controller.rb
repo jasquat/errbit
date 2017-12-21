@@ -16,7 +16,9 @@ private
 
   def run_mongo_check
     Timeout.timeout(0.75) do
-      Mongoid.default_client.database_names.present?
+      # collections might be empty which is ok but it will raise an exception if
+      # database cannot be contacted
+      Mongoid.default_client.collections
     end
     { check_name: 'mongo', ok: true }
   rescue StandardError => e
