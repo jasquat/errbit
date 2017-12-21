@@ -46,8 +46,11 @@ COPY . /app
 RUN RAILS_ENV=production bundle exec rake assets:precompile
 RUN chown -R errbit:errbit /app
 
+COPY bin/docker-entrypoint.sh /usr/local/bin/
+
 USER errbit
 
 HEALTHCHECK CMD curl --fail "http://$(/sbin/ip route | /usr/bin/awk '/src/{print $NF}'):8080/users/sign_in" ||  exit 1
 
-CMD ["bundle","exec","puma","-C","config/puma.default.rb"]
+CMD ["puma","-C","config/puma.default.rb"]
+ENTRYPOINT ["docker-entrypoint.sh"]
