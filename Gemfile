@@ -10,7 +10,7 @@ gem 'railties', RAILS_VERSION
 
 gem 'actionmailer_inline_css'
 gem 'decent_exposure'
-gem 'devise', '~> 3.5.5'
+gem 'devise', '~> 4.4.0'
 gem 'dotenv-rails'
 gem 'draper'
 gem 'errbit_plugin'
@@ -77,6 +77,7 @@ group :development do
 end
 
 group :test do
+  gem 'rake'
   gem 'rspec', '~> 3.5'
   gem 'rspec-rails', '~> 3.5', require: false
   gem 'rspec-activemodel-mocks'

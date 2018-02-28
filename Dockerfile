@@ -18,8 +18,8 @@ RUN mkdir -p /app \
   && chmod 705 /app/
 WORKDIR /app
 
-RUN gem update --system \
-  && gem install bundler \
+RUN gem update --system 2.7.4 \
+  && gem install bundler --version 1.16.1 \
   && apk add --no-cache \
     curl \
     less \
@@ -50,7 +50,7 @@ COPY bin/docker-entrypoint.sh /usr/local/bin/
 
 USER errbit
 
-HEALTHCHECK CMD curl --fail "http://$(/sbin/ip route | /usr/bin/awk '/src/{print $NF}'):8080/users/sign_in" ||  exit 1
+HEALTHCHECK CMD curl --fail "http://$(/bin/hostname -i | /usr/bin/awk '{ print $1 }'):8080/users/sign_in" ||  exit 1
 
 CMD ["puma","-C","config/puma.default.rb"]
 ENTRYPOINT ["docker-entrypoint.sh"]
